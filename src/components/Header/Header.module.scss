@@ -1,0 +1,41 @@
+.header {
+  padding-top: 20px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.linkWrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 28px;
+}
+
+.btnWrapper {
+  display: flex;
+  column-gap: 16px;
+}
+.loginBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.regBtn {
+  color: #ffffff;
+  background-color: #121417;
+  padding: 14px 39px;
+  border-radius: 12px;
+}

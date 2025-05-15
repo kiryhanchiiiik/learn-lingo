@@ -1,0 +1,19 @@
+@use "./reset" as *;
+
+body {
+  font-family: "Roboto", sans-serif;
+  color: #121417;
+}
+
+a {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+}
+
+button {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 125%;
+}
