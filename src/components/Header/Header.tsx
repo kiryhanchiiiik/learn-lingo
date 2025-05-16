@@ -1,6 +1,13 @@
 import css from "./Header.module.scss";
 import sprite from "../../img/sprite.svg";
 
+import { NavLink } from "react-router-dom";
+import clsx from "clsx";
+
+const buildLinkClass = ({ isActive }: { isActive: boolean }) => {
+  return clsx(css.link, isActive && css.active);
+};
+
 const Header = () => {
   return (
     <header className={css.header}>
@@ -14,8 +21,12 @@ const Header = () => {
           </a>
         </div>
         <div className={css.linkWrapper}>
-          <a href="#">Home</a>
-          <a href="#">Teachers</a>
+          <NavLink className={buildLinkClass} to="/">
+            Home
+          </NavLink>
+          <NavLink className={buildLinkClass} to="/teachers">
+            Teachers
+          </NavLink>
         </div>
         <div className={css.btnWrapper}>
           <button className={css.loginBtn} type="button">
