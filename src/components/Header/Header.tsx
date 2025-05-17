@@ -84,6 +84,11 @@ const Header = () => {
           <Formik
             initialValues={INITIAL_VALUES}
             validationSchema={RegisterUserSchema}
+            onSubmit={(values, { resetForm }) => {
+              console.log("Form submitted:", values);
+              resetForm();
+              closeModal();
+            }}
           >
             <Form>
               {/* Field for name */}
