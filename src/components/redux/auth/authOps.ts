@@ -4,12 +4,12 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { auth } from "../../api/firebase";
+import { auth } from "../../api/firebase.ts";
 import type { AppDispatch } from "../store";
 import { setUser, setLoading, setError, clearUser } from "./authSlice";
 
 export const registerUser =
-  (email: string, password: string, name: string, onSuccess: () => void) =>
+  (email: string, password: string, name: string) =>
   async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoading(true));
@@ -36,8 +36,6 @@ export const registerUser =
       };
 
       dispatch(setUser(userData));
-
-      onSuccess();
     } catch (error: any) {
       dispatch(setError(error.message));
     } finally {
