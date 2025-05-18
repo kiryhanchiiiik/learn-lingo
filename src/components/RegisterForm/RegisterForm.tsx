@@ -1,6 +1,9 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import css from "./RegisterForm.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../redux/auth/authOps";
+import type { RootState } from "../redux/store";
 
 interface RegistrationFormValues {
   name: string;
@@ -26,12 +29,17 @@ const validationSchema = Yup.object().shape({
 });
 
 const RegisterForm = ({ onSuccess }: { onSuccess: () => void }) => {
+  const dispatch = useDispatch();
+  const error = useSelector((state: RootState) => state.auth.error);
+
   return (
     <Formik
       initialValues={INITIAL_VALUES}
       validationSchema={validationSchema}
-      onSubmit={(values, { resetForm }) => {
-        console.log("Registered:", values);
+      onSubmit={async (values, { resetForm }) => {
+        const { name, email, password } = values;
+        await dispatch(registerUser(email, password, name) as any);
+
         resetForm();
         onSuccess();
       }}
@@ -71,6 +79,8 @@ const RegisterForm = ({ onSuccess }: { onSuccess: () => void }) => {
         <button className={css.registerBtn} type="submit">
           Sign Up
         </button>
+
+        {error && <p className={css.error}>{error}</p>}
       </Form>
     </Formik>
   );

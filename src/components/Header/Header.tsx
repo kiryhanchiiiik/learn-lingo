@@ -1,12 +1,17 @@
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
+
 import Modal from "../Modal/Modal";
 import LoginForm from "../LoginForm/LoginForm";
 import RegisterForm from "../RegisterForm/RegisterForm";
 
 import sprite from "../../img/sprite.svg";
 import css from "./Header.module.scss";
+
+import type { RootState, AppDispatch } from "../redux/store";
+import { logoutUser } from "../redux/auth/authOps";
 
 const buildLinkClass = ({ isActive }: { isActive: boolean }) =>
   clsx(css.link, isActive && css.active);
@@ -15,11 +20,19 @@ const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
+  const dispatch = useDispatch<AppDispatch>();
+
+  const user = useSelector((state: RootState) => state.auth.user);
+
   const openLoginModal = () => setIsLoginModalOpen(true);
   const closeLoginModal = () => setIsLoginModalOpen(false);
 
   const openRegisterModal = () => setIsModalOpen(true);
   const closeRegisterModal = () => setIsModalOpen(false);
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
 
   return (
     <header className={css.header}>
@@ -43,23 +56,38 @@ const Header = () => {
         </nav>
 
         <div className={css.btnWrapper}>
-          <button
-            className={css.loginBtn}
-            type="button"
-            onClick={openLoginModal}
-          >
-            <svg width={20} height={20}>
-              <use href={`${sprite}#login`} />
-            </svg>
-            Log in
-          </button>
-          <button
-            className={css.regBtn}
-            type="button"
-            onClick={openRegisterModal}
-          >
-            Registration
-          </button>
+          {user ? (
+            <>
+              <p className={css.greeting}>Hello, {user.displayName}!</p>
+              <button
+                className={css.logoutBtn}
+                type="button"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                className={css.loginBtn}
+                type="button"
+                onClick={openLoginModal}
+              >
+                <svg width={20} height={20}>
+                  <use href={`${sprite}#login`} />
+                </svg>
+                Log in
+              </button>
+              <button
+                className={css.regBtn}
+                type="button"
+                onClick={openRegisterModal}
+              >
+                Registration
+              </button>
+            </>
+          )}
         </div>
       </div>
 
