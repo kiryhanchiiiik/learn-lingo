@@ -4,7 +4,7 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { auth } from "../../api/firebase.ts";
+import { auth } from "../../../api/firebase.ts";
 import type { AppDispatch } from "../store";
 import { setUser, setLoading, setError, clearUser } from "./authSlice";
 

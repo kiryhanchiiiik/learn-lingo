@@ -1,19 +1,21 @@
 import { Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDelayedLoader } from "./components/hooks/useDelayedLoader";
+import type { RootState } from "./components/redux/store";
 import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import TeachersPage from "./pages/TeachersPage/TeachersPage";
-import "./App.scss";
 import useAuthListener from "./components/hooks/useAuthListener";
-import { useSelector } from "react-redux";
-import type { RootState } from "./components/redux/store";
+import Loader from "./components/Loader/Loader";
+import "./App.scss";
 
 function App() {
   useAuthListener();
-
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
+  const showLoader = useDelayedLoader(isLoading, 700);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (showLoader) {
+    return <Loader />;
   }
   return (
     <div className="container">
