@@ -10,8 +10,8 @@ import RegisterForm from "../RegisterForm/RegisterForm";
 import sprite from "../../img/sprite.svg";
 import css from "./Header.module.scss";
 
-import type { RootState, AppDispatch } from "../redux/store";
-import { logoutUser } from "../redux/auth/authOps";
+import type { RootState, AppDispatch } from "../../redux/store";
+import { logoutUser } from "../../redux/auth/authOps";
 
 const buildLinkClass = ({ isActive }: { isActive: boolean }) =>
   clsx(css.link, isActive && css.active);

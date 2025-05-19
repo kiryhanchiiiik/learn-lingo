@@ -2,8 +2,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import css from "./LoginForm.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../redux/auth/authOps";
-import type { AppDispatch, RootState } from "../redux/store";
+import { loginUser } from "../../redux/auth/authOps";
+import type { AppDispatch, RootState } from "../../redux/store";
 
 interface LoginFormValues {
   email: string;

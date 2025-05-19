@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import type { RootState } from "./components/redux/store";
+import type { RootState } from "./redux/store";
 
 type ProtectedRouteProps = {
-  component: JSX.Element;
+  component: Element;
   redirectTo?: string;
 };
 

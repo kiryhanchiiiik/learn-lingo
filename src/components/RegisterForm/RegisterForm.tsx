@@ -2,8 +2,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import css from "./RegisterForm.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../redux/auth/authOps";
-import type { RootState } from "../redux/store";
+import { registerUser } from "../../redux/auth/authOps";
+import type { RootState } from "../../redux/store";
 
 interface RegistrationFormValues {
   name: string;
