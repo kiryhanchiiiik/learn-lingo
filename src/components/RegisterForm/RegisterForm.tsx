@@ -1,4 +1,5 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import css from "./RegisterForm.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,78 +12,82 @@ interface RegistrationFormValues {
   password: string;
 }
 
-const INITIAL_VALUES: RegistrationFormValues = {
-  name: "",
-  email: "",
-  password: "",
-};
-
 const validationSchema = Yup.object().shape({
   name: Yup.string()
     .min(3, "Too short!")
-    .max(20, "Too Long!")
+    .max(20, "Too long!")
     .required("Required!"),
   email: Yup.string()
     .email("Email must be a valid format")
     .required("Required!"),
-  password: Yup.string().min(8, "Too short!").required("Required"),
+  password: Yup.string().min(8, "Too short!").required("Required!"),
 });
 
 const RegisterForm = ({ onSuccess }: { onSuccess: () => void }) => {
   const dispatch = useDispatch();
   const error = useSelector((state: RootState) => state.auth.error);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<RegistrationFormValues>({
+    resolver: yupResolver(validationSchema),
+  });
+
+  const onSubmit = async (data: RegistrationFormValues) => {
+    const { name, email, password } = data;
+    await dispatch(registerUser(email, password, name) as any);
+
+    reset();
+    onSuccess();
+  };
+
   return (
-    <Formik
-      initialValues={INITIAL_VALUES}
-      validationSchema={validationSchema}
-      onSubmit={async (values, { resetForm }) => {
-        const { name, email, password } = values;
-        await dispatch(registerUser(email, password, name) as any);
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <label className={css.label}>
+        {errors.name && (
+          <span className={css.error}>{errors.name.message}</span>
+        )}
+        <input
+          className={css.input}
+          type="text"
+          {...register("name")}
+          placeholder="Name"
+        />
+      </label>
 
-        resetForm();
-        onSuccess();
-      }}
-    >
-      <Form>
-        <label className={css.label}>
-          <ErrorMessage name="name" component="span" className={css.error} />
-          <Field
-            className={css.input}
-            type="text"
-            name="name"
-            placeholder="Name"
-          />
-        </label>
-        <label className={css.label}>
-          <ErrorMessage name="email" component="span" className={css.error} />
-          <Field
-            className={css.input}
-            type="email"
-            name="email"
-            placeholder="Email"
-          />
-        </label>
-        <label className={css.label}>
-          <ErrorMessage
-            name="password"
-            component="span"
-            className={css.error}
-          />
-          <Field
-            className={`${css.input} ${css.lastInput}`}
-            type="password"
-            name="password"
-            placeholder="Password"
-          />
-        </label>
-        <button className={css.registerBtn} type="submit">
-          Sign Up
-        </button>
+      <label className={css.label}>
+        {errors.email && (
+          <span className={css.error}>{errors.email.message}</span>
+        )}
+        <input
+          className={css.input}
+          type="email"
+          {...register("email")}
+          placeholder="Email"
+        />
+      </label>
 
-        {error && <p className={css.error}>{error}</p>}
-      </Form>
-    </Formik>
+      <label className={css.label}>
+        {errors.password && (
+          <span className={css.error}>{errors.password.message}</span>
+        )}
+        <input
+          className={`${css.input} ${css.lastInput}`}
+          type="password"
+          {...register("password")}
+          placeholder="Password"
+        />
+      </label>
+
+      {error && <p className={css.error}>{error}</p>}
+
+      <button className={css.registerBtn} type="submit">
+        Sign Up
+      </button>
+    </form>
   );
 };
 

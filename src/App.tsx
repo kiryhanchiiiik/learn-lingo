@@ -8,8 +8,8 @@ import TeachersPage from "./pages/TeachersPage/TeachersPage";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 import useAuthListener from "./components/hooks/useAuthListener";
 import Loader from "./components/Loader/Loader";
-import "./App.scss";
 import ProtectedRoute from "./ProtectedRoute";
+import "./App.scss";
 
 function App() {
   useAuthListener();

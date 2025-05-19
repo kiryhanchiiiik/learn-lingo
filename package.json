@@ -10,12 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
     "@reduxjs/toolkit": "^2.8.2",
     "clsx": "^2.1.1",
     "firebase": "^11.7.3",
-    "formik": "^2.4.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-hook-form": "^7.56.4",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.0",
     "react-spinners": "^0.17.0",

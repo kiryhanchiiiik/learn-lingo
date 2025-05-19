@@ -1,5 +1,6 @@
 import css from "./HomePage.module.scss";
 import girl from "../../img/girl.png";
+import { NavLink } from "react-router-dom";
 
 const HomePage = () => {
   return (
@@ -19,9 +20,9 @@ const HomePage = () => {
             Elevate your language proficiency to new heights by connecting with
             highly qualified and experienced tutors.
           </p>
-          <button type="button" className={css.homeBtn}>
+          <NavLink className={css.homeBtn} to="/teachers">
             Get started
-          </button>
+          </NavLink>
         </div>
         <div className={css.imgContainer}>
           <img src={girl} alt={girl} />

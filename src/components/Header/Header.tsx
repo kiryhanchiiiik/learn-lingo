@@ -38,12 +38,12 @@ const Header = () => {
     <header className={css.header}>
       <div className={css.wrapper}>
         <div className={css.logoContainer}>
-          <a href="#" className={css.logo}>
+          <NavLink to="/" className={css.logo}>
             <svg width={28} height={28}>
               <use href={`${sprite}#ukraine`} />
             </svg>
             LearnLingo
-          </a>
+          </NavLink>
         </div>
 
         <nav className={css.linkWrapper}>
