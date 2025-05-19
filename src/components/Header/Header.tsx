@@ -53,6 +53,11 @@ const Header = () => {
           <NavLink className={buildLinkClass} to="/teachers">
             Teachers
           </NavLink>
+          {user && (
+            <NavLink className={buildLinkClass} to="/favorites">
+              Favorites
+            </NavLink>
+          )}
         </nav>
 
         <div className={css.btnWrapper}>

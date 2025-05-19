@@ -5,9 +5,11 @@ import type { RootState } from "./components/redux/store";
 import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import TeachersPage from "./pages/TeachersPage/TeachersPage";
+import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 import useAuthListener from "./components/hooks/useAuthListener";
 import Loader from "./components/Loader/Loader";
 import "./App.scss";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   useAuthListener();
@@ -23,6 +25,15 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/teachers" element={<TeachersPage />} />
+        <Route
+          path="/favorites"
+          element={
+            <ProtectedRoute
+              component={<FavoritesPage />}
+              redirectTo="/"
+            ></ProtectedRoute>
+          }
+        />
       </Routes>
     </div>
   );
