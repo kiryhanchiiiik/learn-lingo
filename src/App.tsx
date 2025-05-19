@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDelayedLoader } from "./components/hooks/useDelayedLoader";
-import type { RootState } from "./components/redux/store";
+import type { RootState } from "./redux/store";
 import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import TeachersPage from "./pages/TeachersPage/TeachersPage";
