@@ -156,6 +156,13 @@ const TeachersPage = () => {
                 <div className={css.lang}>#B1 Intermediate</div>
                 <div className={css.lang}>#B2 Upper-Intermediate</div>
               </div>
+              {showMore && (
+                <div>
+                  <button type="button" className={css.bookBtn}>
+                    Book trial lesson
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </li>
