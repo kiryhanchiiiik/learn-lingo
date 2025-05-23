@@ -1,8 +1,16 @@
 import css from "./TeachersPage.module.scss";
 import girl from "../../img/girlss.png";
+import frank from "../../img/frank.png";
 import sprite from "../../img/sprite.svg";
+import { useState } from "react";
 
 const TeachersPage = () => {
+  const [showMore, setShowMore] = useState<boolean>(false);
+
+  const toggleReadMore = (): void => {
+    setShowMore((prev) => !prev);
+  };
+
   return (
     <section className={css.teachers}>
       <ul className={css.teachersContainer}>
@@ -72,7 +80,75 @@ const TeachersPage = () => {
                     above).Provides personalized study plans
                   </p>
                 </div>
-                <a className={css.readMoreBtn}>Read more</a>
+                {!showMore && (
+                  <a className={css.readMoreBtn} onClick={toggleReadMore}>
+                    Read more
+                  </a>
+                )}
+                {showMore && (
+                  <div className={css.moreInfo}>
+                    <p className={css.moreInfoDesc}>
+                      Jane is an experienced and dedicated language teacher
+                      specializing in German and French. She holds a Bachelor's
+                      degree in German Studies and a Master's degree in French
+                      Literature. Her passion for languages and teaching has
+                      driven her to become a highly proficient and knowledgeable
+                      instructor. With over 10 years of teaching experience,
+                      Jane has helped numerous students of various backgrounds
+                      and proficiency levels achieve their language learning
+                      goals. She is skilled at adapting her teaching methods to
+                      suit the needs and learning styles of her students,
+                      ensuring that they feel supported and motivated throughout
+                      their language journey.
+                    </p>
+                    <ul className={css.moreInfoList}>
+                      <li>
+                        <div className={css.moreInfoItem}>
+                          <img src={frank} alt={frank} />
+                          <div>
+                            <span className={css.spanWord}>Frank</span>
+                            <p
+                              className={`${css.reviewContainer} ${css.infoWrapper}`}
+                            >
+                              <svg width={16} height={16}>
+                                <use href={`${sprite}#star`}></use>
+                              </svg>{" "}
+                              4.0
+                            </p>
+                          </div>
+                        </div>
+                        <p
+                          className={`${css.reviewComment} ${css.infoWrapper}`}
+                        >
+                          Jane's lessons were very helpful. I made good
+                          progress.
+                        </p>
+                      </li>
+                      <li>
+                        <div className={css.moreInfoItem}>
+                          <img src={frank} alt={frank} />
+                          <div>
+                            <span className={css.spanWord}>Frank</span>
+                            <p
+                              className={`${css.reviewContainer} ${css.infoWrapper}`}
+                            >
+                              <svg width={16} height={16}>
+                                <use href={`${sprite}#star`}></use>
+                              </svg>{" "}
+                              4.0
+                            </p>
+                          </div>
+                        </div>
+                        <p
+                          className={`${css.reviewComment} ${css.infoWrapper}`}
+                        >
+                          Jane's lessons were very helpful. I made good
+                          progress.
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </div>
               <div className={css.langLvl}>
                 <div className={`${css.lang} ${css.blue}`}>#A1 Beginner</div>

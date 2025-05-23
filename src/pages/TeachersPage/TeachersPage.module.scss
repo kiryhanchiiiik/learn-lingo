@@ -113,3 +113,43 @@
   text-decoration: underline;
   cursor: pointer;
 }
+.moreInfo {
+  animation: fadeIn 0.3s ease-in-out;
+  .moreInfoDesc {
+    width: 968px;
+    margin-top: 8px;
+    margin-bottom: 32px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.moreInfoList {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.moreInfoItem {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.reviewContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.reviewComment {
+  margin-top: 16px;
+}
