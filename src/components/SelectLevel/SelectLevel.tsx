@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { axiosInstance } from "../../api/axiosInstance";
 import sprite from "../../img/sprite.svg";
-import css from "./SelectLanguage.module.scss";
+import css from "./SelectLevel.module.scss";
 
-const SelectLanguage = () => {
-  const [languages, setLanguages] = useState<string[] | null>(null);
+const SelectLevel = () => {
+  const [levels, setLevels] = useState<string[] | null>(null);
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -12,8 +12,8 @@ const SelectLanguage = () => {
   useEffect(() => {
     const fetchLanguages = async () => {
       try {
-        const response = await axiosInstance.get("/languages.json");
-        setLanguages(response.data);
+        const response = await axiosInstance.get("/levels.json");
+        setLevels(response.data);
       } catch (err) {
         console.error(err);
       }
@@ -44,29 +44,29 @@ const SelectLanguage = () => {
 
   return (
     <div className={css.wrapper} ref={dropdownRef}>
-      <label className={css.label}>Languages</label>
+      <label className={css.label}>Level of knowledge</label>
       <div className={css.customSelect}>
         <button
           type="button"
           className={css.selectButton}
           onClick={handleToggle}
         >
-          {selectedLanguage || "Languages"}
+          {selectedLanguage || "Levels"}
           <div className={`${css.arrow} ${isOpen ? css.arrowUp : ""}`}>
             <svg width="12" height="12">
               <use href={`${sprite}#down`} />
             </svg>
           </div>
         </button>
-        {isOpen && languages && (
+        {isOpen && levels && (
           <ul className={css.dropdownList}>
-            {languages.map((language) => (
+            {levels.map((level) => (
               <li
-                key={language}
+                key={level}
                 className={css.dropdownItem}
-                onClick={() => handleLanguageClick(language)}
+                onClick={() => handleLanguageClick(level)}
               >
-                {language}
+                {level}
               </li>
             ))}
           </ul>
@@ -76,4 +76,4 @@ const SelectLanguage = () => {
   );
 };
 
-export default SelectLanguage;
+export default SelectLevel;
