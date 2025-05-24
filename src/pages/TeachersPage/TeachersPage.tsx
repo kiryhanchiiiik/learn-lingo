@@ -28,9 +28,24 @@ interface Teacher {
 const TeachersPage = () => {
   const [showMore, setShowMore] = useState<number | null>(null);
   const [teachers, setTeachers] = useState<null | Teacher[]>(null);
+  const [favoriteIndexes, setFavoriteIndexes] = useState<Set<number>>(
+    new Set()
+  );
 
   const toggleReadMore = (index: number): void => {
     setShowMore((prev) => (prev === index ? null : index));
+  };
+
+  const toggleFavorite = (index: number): void => {
+    setFavoriteIndexes((prev) => {
+      const updated = new Set(prev);
+      if (updated.has(index)) {
+        updated.delete(index);
+      } else {
+        updated.add(index);
+      }
+      return updated;
+    });
   };
 
   useEffect(() => {
@@ -102,11 +117,22 @@ const TeachersPage = () => {
                       </p>
                     </div>
                     <div className={css.ImgHeart}>
-                      <button type="button">
-                        <svg width={27} height={27}>
-                          <use href={`${sprite}#heart`}></use>
-                        </svg>
-                      </button>
+                      {
+                        <button
+                          type="button"
+                          onClick={() => toggleFavorite(index)}
+                        >
+                          <svg width={27} height={27}>
+                            <use
+                              href={`${sprite}#${
+                                favoriteIndexes.has(index)
+                                  ? "filled-heart"
+                                  : "heart"
+                              }`}
+                            ></use>
+                          </svg>
+                        </button>
+                      }
                     </div>
                   </div>
                   <div className={css.teacherInfo}>
