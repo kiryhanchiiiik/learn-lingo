@@ -5,7 +5,7 @@ import css from "./SelectLevel.module.scss";
 
 const SelectLevel = () => {
   const [levels, setLevels] = useState<string[] | null>(null);
-  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+  const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -38,7 +38,7 @@ const SelectLevel = () => {
   const handleToggle = () => setIsOpen((prev) => !prev);
 
   const handleLanguageClick = (language: string) => {
-    setSelectedLanguage(language);
+    setSelectedLevel(language);
     setIsOpen(false);
   };
 
@@ -51,7 +51,7 @@ const SelectLevel = () => {
           className={css.selectButton}
           onClick={handleToggle}
         >
-          {selectedLanguage || "Levels"}
+          {selectedLevel || "Levels"}
           <div className={`${css.arrow} ${isOpen ? css.arrowUp : ""}`}>
             <svg width="12" height="12">
               <use href={`${sprite}#down`} />
