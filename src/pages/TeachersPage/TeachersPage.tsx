@@ -2,6 +2,7 @@ import css from "./TeachersPage.module.scss";
 import sprite from "../../img/sprite.svg";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../api/axiosInstance";
+import FilterForm from "../../components/FilterForm/FilterForm";
 
 interface Review {
   reviewer_name: string;
@@ -46,6 +47,7 @@ const TeachersPage = () => {
 
   return (
     <section className={css.teachers}>
+      <FilterForm />
       <ul className={css.teachersContainer}>
         {teachers &&
           teachers.map((teacher, index) => (
