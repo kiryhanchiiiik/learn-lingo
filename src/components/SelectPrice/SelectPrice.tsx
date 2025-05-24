@@ -44,7 +44,7 @@ const SelectPrice = () => {
 
   return (
     <div className={css.wrapper} ref={dropdownRef}>
-      <label className={css.label}>Level of knowledge</label>
+      <label className={css.label}>Price</label>
       <div className={css.customSelect}>
         <button
           type="button"
