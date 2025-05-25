@@ -1,6 +1,7 @@
 .teachers {
   padding-left: 64px;
   padding-right: 64px;
+  padding-bottom: 96px;
 }
 
 .teachersContainer {
@@ -184,6 +185,29 @@
   padding: 16px 48px;
   background-color: #9fb7ce;
   animation: fadeIn 0.3s ease-in-out;
+
+  background-color: #9fb7ce;
+  transition: color 350ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover,
+  &:focus {
+    background-color: #bfd6ea;
+    color: #ffffff;
+  }
+}
+
+.loadMoreWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.loadMoreBtn {
+  width: 183px;
+  border-radius: 12px;
+  padding: 16px 48px;
+  margin-top: 64px;
+  background: #9fb7ce;
 
   background-color: #9fb7ce;
   transition: color 350ms cubic-bezier(0.4, 0, 0.2, 1),

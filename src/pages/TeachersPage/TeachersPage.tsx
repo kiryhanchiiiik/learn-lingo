@@ -31,10 +31,13 @@ const TeachersPage = () => {
   const [favoriteIndexes, setFavoriteIndexes] = useState<Set<number>>(
     new Set()
   );
+  const [visibleCount, setVisibleCount] = useState(4);
 
   const toggleReadMore = (index: number): void => {
     setShowMore((prev) => (prev === index ? null : index));
   };
+
+  const loadMore = () => setVisibleCount((prev) => prev + 4);
 
   const toggleFavorite = (index: number): void => {
     setFavoriteIndexes((prev) => {
@@ -65,7 +68,7 @@ const TeachersPage = () => {
       <FilterForm />
       <ul className={css.teachersContainer}>
         {teachers &&
-          teachers.map((teacher, index) => (
+          teachers.slice(0, visibleCount).map((teacher, index) => (
             <li key={index}>
               <div className={css.teachersItem}>
                 <div className={css.photoWrapper}>
@@ -213,6 +216,13 @@ const TeachersPage = () => {
             </li>
           ))}
       </ul>
+      {teachers && visibleCount < teachers.length && (
+        <div className={css.loadMoreWrapper}>
+          <button className={css.loadMoreBtn} onClick={loadMore}>
+            Load more
+          </button>
+        </div>
+      )}
     </section>
   );
 };
