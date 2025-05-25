@@ -42,14 +42,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f7f7f7;
+  background: #ffffff;
   cursor: pointer;
   color: #101828;
 }
-.selectButton:hover,
-.selectButton:focus {
-  background: #f7f7f7;
-}
+
 .arrow {
   transition: transform 0.3s ease;
 }

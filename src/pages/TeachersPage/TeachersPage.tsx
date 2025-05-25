@@ -69,7 +69,7 @@ const TeachersPage = () => {
       <ul className={css.teachersContainer}>
         {teachers &&
           teachers.slice(0, visibleCount).map((teacher, index) => (
-            <li key={index}>
+            <li className={css.teachersContainerItem} key={index}>
               <div className={css.teachersItem}>
                 <div className={css.photoWrapper}>
                   <img
