@@ -5,7 +5,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../../api/firebase";
-import type { AppDispatch } from "../store";
+import type { AppDispatch, RootState } from "../store";
 import { setUser, setLoading, setError, clearUser } from "./authSlice";
 import { clearFavorites } from "../favorites/favoritesSlice";
 
@@ -69,25 +69,26 @@ export const loginUser =
     }
   };
 
-export const logoutUser = () => async (dispatch: AppDispatch, getState) => {
-  try {
-    dispatch(setLoading(true));
-    dispatch(setError(null));
+export const logoutUser =
+  () => async (dispatch: AppDispatch, getState: () => RootState) => {
+    try {
+      dispatch(setLoading(true));
+      dispatch(setError(null));
 
-    await signOut(auth);
+      await signOut(auth);
 
-    const state = getState();
-    const userEmail = state.auth.user?.email;
-    if (userEmail) {
-      localStorage.removeItem(`favorites_${userEmail}`);
+      const state = getState();
+      const userEmail = state.auth.user?.email;
+      if (userEmail) {
+        localStorage.removeItem(`favorites_${userEmail}`);
+      }
+
+      localStorage.removeItem("user");
+      dispatch(clearUser());
+      dispatch(clearFavorites());
+    } catch (error: any) {
+      dispatch(setError(error.message));
+    } finally {
+      dispatch(setLoading(false));
     }
-
-    localStorage.removeItem("user");
-    dispatch(clearUser());
-    dispatch(clearFavorites());
-  } catch (error: any) {
-    dispatch(setError(error.message));
-  } finally {
-    dispatch(setLoading(false));
-  }
-};
+  };

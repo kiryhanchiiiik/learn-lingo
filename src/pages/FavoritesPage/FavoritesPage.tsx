@@ -8,6 +8,7 @@ import css from "./FavoritePage.module.scss";
 
 const FavoritesPage = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
   const favorites = useSelector((state: RootState) => state.favorites.items);
   const [showMore, setShowMore] = useState<number | null>(null);
 
@@ -16,7 +17,7 @@ const FavoritesPage = () => {
   };
 
   const toggleFavorite = (teacher: Teacher): void => {
-    dispatch(removeFavorite(teacher));
+    dispatch(removeFavorite({ teacher, email: user.email }));
   };
 
   return (
