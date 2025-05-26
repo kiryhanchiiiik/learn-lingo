@@ -8,201 +8,201 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
-
-  .teachersContainerItem {
-    background-color: #ffffff;
-    border-radius: 24px;
-    padding: 24px;
-    width: 1184px;
-  }
-}
-.photoWrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid #fbe9ba;
-  border-radius: 100px;
-  width: 120px;
-  height: 120px;
-}
-.teacherImg {
-  width: 96px;
-  height: 96px;
-  border-radius: 100px;
-}
-.status {
-  position: absolute;
-  top: 15px;
-  right: 20px;
 }
 
-.teacherName {
-  p {
-    font-weight: 500;
-    color: #8a8a89;
-  }
-  h3 {
-    font-weight: 500;
-    font-size: 24px;
-  }
-}
+// .teachersContainerItem {
+//   background-color: #ffffff;
+//   border-radius: 24px;
+//   padding: 24px;
+//   width: 1184px;
+// }
+// .photoWrapper {
+//   position: relative;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   border: 3px solid #bfd6ea;
+//   border-radius: 100px;
+//   width: 120px;
+//   height: 120px;
+// }
+// .teacherImg {
+//   width: 96px;
+//   height: 96px;
+//   border-radius: 100px;
+// }
+// .status {
+//   position: absolute;
+//   top: 15px;
+//   right: 20px;
+// }
 
-.teachersItem {
-  display: flex;
-  gap: 48px;
-}
+// .teacherName {
+//   p {
+//     font-weight: 500;
+//     color: #8a8a89;
+//   }
+//   h3 {
+//     font-weight: 500;
+//     font-size: 24px;
+//   }
+// }
 
-.descWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-.teacherDesc {
-  display: flex;
-  justify-content: space-between;
-  width: 968px;
-}
+// .teachersItem {
+//   display: flex;
+//   gap: 48px;
+// }
 
-.teacherAchieve {
-  display: flex;
-  align-items: center;
-  height: 26px;
-  gap: 16px;
-  .flexGap {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    height: 24px;
-  }
-  p {
-    font-weight: 500;
-  }
-}
+// .descWrapper {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 32px;
+// }
+// .teacherDesc {
+//   display: flex;
+//   justify-content: space-between;
+//   width: 968px;
+// }
 
-.ImgHeart {
-  top: 0;
-  right: 64px;
-}
+// .teacherAchieve {
+//   display: flex;
+//   align-items: center;
+//   height: 26px;
+//   gap: 16px;
+//   .flexGap {
+//     display: flex;
+//     align-items: center;
+//     gap: 4px;
+//     height: 24px;
+//   }
+//   p {
+//     font-weight: 500;
+//   }
+// }
 
-.teacherInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+// .ImgHeart {
+//   top: 0;
+//   right: 64px;
+// }
 
-  a {
-    margin-top: 8px;
-  }
+// .teacherInfo {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 8px;
 
-  .teacherInfoContainer {
-    display: flex;
-    gap: 4px;
-  }
-}
+//   a {
+//     margin-top: 8px;
+//   }
 
-.priceColor {
-  color: #38cd3e;
-}
-.langLvl {
-  display: flex;
-  gap: 8px;
-}
+//   .teacherInfoContainer {
+//     display: flex;
+//     gap: 4px;
+//   }
+// }
 
-.lang {
-  border: 1px solid rgba(18, 20, 23, 0.2);
-  font-weight: 500;
-  border-radius: 35px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 16px;
-  padding-right: 16px;
-}
-.blue {
-  background-color: #9fb7ce;
-  border: none;
-}
+// .priceColor {
+//   color: #38cd3e;
+// }
+// .langLvl {
+//   display: flex;
+//   gap: 8px;
+// }
 
-.line {
-  height: 16px;
-  border-right: 1px solid rgba(18, 20, 23, 0.2);
-}
+// .lang {
+//   border: 1px solid rgba(18, 20, 23, 0.2);
+//   font-weight: 500;
+//   border-radius: 35px;
+//   padding-top: 8px;
+//   padding-bottom: 8px;
+//   padding-left: 16px;
+//   padding-right: 16px;
+// }
+// .blue {
+//   background-color: #9fb7ce;
+//   border: none;
+// }
 
-.spanWord {
-  font-weight: 500;
-  color: #8a8a89;
-}
+// .line {
+//   height: 16px;
+//   border-right: 1px solid rgba(18, 20, 23, 0.2);
+// }
 
-.infoDescPhUnderline {
-  font-weight: 500;
-  text-decoration: underline;
-  color: #121417;
-}
-.infoWrapper {
-  font-weight: 500;
-}
+// .spanWord {
+//   font-weight: 500;
+//   color: #8a8a89;
+// }
 
-.readMoreBtn {
-  font-weight: 500;
-  text-decoration: underline;
-  cursor: pointer;
-}
-.moreInfo {
-  animation: fadeIn 0.3s ease-in-out;
-  .moreInfoDesc {
-    width: 968px;
-    margin-top: 8px;
-    margin-bottom: 32px;
-  }
-}
+// .infoDescPhUnderline {
+//   font-weight: 500;
+//   text-decoration: underline;
+//   color: #121417;
+// }
+// .infoWrapper {
+//   font-weight: 500;
+// }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+// .readMoreBtn {
+//   font-weight: 500;
+//   text-decoration: underline;
+//   cursor: pointer;
+// }
+// .moreInfo {
+//   animation: fadeIn 0.3s ease-in-out;
+//   .moreInfoDesc {
+//     width: 968px;
+//     margin-top: 8px;
+//     margin-bottom: 32px;
+//   }
+// }
 
-.moreInfoList {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
+// @keyframes fadeIn {
+//   from {
+//     opacity: 0;
+//     transform: translateY(-5px);
+//   }
+//   to {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+// }
 
-.moreInfoItem {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
+// .moreInfoList {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 32px;
+// }
 
-.reviewContainer {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.reviewComment {
-  margin-top: 16px;
-}
+// .moreInfoItem {
+//   display: flex;
+//   gap: 12px;
+//   align-items: center;
+// }
 
-.bookBtn {
-  border-radius: 12px;
-  padding: 16px 48px;
-  background-color: #9fb7ce;
-  animation: fadeIn 0.3s ease-in-out;
+// .reviewContainer {
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+// }
+// .reviewComment {
+//   margin-top: 16px;
+// }
 
-  background-color: #9fb7ce;
-  transition: color 350ms cubic-bezier(0.4, 0, 0.2, 1),
-    background-color 350ms cubic-bezier(0.4, 0, 0.2, 1);
+// .bookBtn {
+//   border-radius: 12px;
+//   padding: 16px 48px;
+//   background-color: #9fb7ce;
+//   animation: fadeIn 0.3s ease-in-out;
 
-  &:hover,
-  &:focus {
-    background-color: #bfd6ea;
-    color: #ffffff;
-  }
-}
+//   background-color: #9fb7ce;
+//   transition: color 350ms cubic-bezier(0.4, 0, 0.2, 1),
+//     background-color 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+//   &:hover,
+//   &:focus {
+//     background-color: #bfd6ea;
+//     color: #ffffff;
+//   }
+// }
 
 .loadMoreWrapper {
   display: flex;

@@ -20,9 +20,7 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    const root = document.getElementById("root");
-
-    if (!root) return;
+    const root = document.getElementById("root")!;
 
     if (location.pathname === "/teachers") {
       root.classList.add("teacher-bg");
