@@ -1,14 +1,15 @@
-import css from "./TeachersPage.module.scss";
 import { useEffect, useState } from "react";
-import { axiosInstance } from "../../api/axiosInstance";
-import FilterForm from "../../components/FilterForm/FilterForm";
-import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../redux/store";
+import { axiosInstance } from "../../api/axiosInstance";
+import { useDispatch, useSelector } from "react-redux";
+import FilterForm from "../../components/FilterForm/FilterForm";
 import {
   addFavorite,
   removeFavorite,
+  setFavorites,
 } from "../../redux/favorites/favoritesSlice";
 import TeacherCard from "../../components/TeacherCard/TeacherCard";
+import css from "./TeachersPage.module.scss";
 
 interface Review {
   reviewer_name: string;
@@ -33,7 +34,7 @@ interface Teacher {
 
 const TeachersPage = () => {
   const [showMore, setShowMore] = useState<number | null>(null);
-  const [teachers, setTeachers] = useState<null | Teacher[]>(null);
+  const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [visibleCount, setVisibleCount] = useState(4);
 
   const dispatch = useDispatch();
@@ -43,17 +44,36 @@ const TeachersPage = () => {
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
-        const response = await axiosInstance.get("/teachers.json");
+        const response = await axiosInstance.get<Teacher[]>("/teachers.json");
         setTeachers(response.data);
       } catch (err) {
-        console.log(err);
+        console.error("Failed to fetch teachers", err);
       }
     };
     fetchTeachers();
   }, []);
 
-  const toggleFavorite = (teacher: Teacher): void => {
-    if (!user) {
+  useEffect(() => {
+    if (user?.email) {
+      const favStr = localStorage.getItem(`favorites_${user.email}`);
+      if (favStr) {
+        try {
+          const favItems: Teacher[] = JSON.parse(favStr);
+          dispatch(setFavorites({ items: favItems }));
+        } catch (e) {
+          console.error("Failed to parse favorites from localStorage", e);
+          dispatch(setFavorites({ items: [] }));
+        }
+      } else {
+        dispatch(setFavorites({ items: [] }));
+      }
+    } else {
+      dispatch(setFavorites({ items: [] }));
+    }
+  }, [user, dispatch]);
+
+  const toggleFavorite = (teacher: Teacher) => {
+    if (!user?.email) {
       alert("Only authorized users can add to favorites.");
       return;
     }
@@ -63,44 +83,47 @@ const TeachersPage = () => {
     );
 
     if (isAlreadyFavorite) {
-      dispatch(removeFavorite(teacher));
+      dispatch(removeFavorite({ teacher, email: user.email }));
     } else {
-      dispatch(addFavorite(teacher));
+      dispatch(addFavorite({ teacher, email: user.email }));
     }
   };
 
-  const toggleReadMore = (index: number): void => {
+  const toggleReadMore = (index: number) => {
     setShowMore((prev) => (prev === index ? null : index));
   };
 
-  const loadMore = () => setVisibleCount((prev) => prev + 4);
+  const loadMore = () => {
+    setVisibleCount((prev) => prev + 4);
+  };
+
+  if (teachers.length === 0) return <p>Loading teachers...</p>;
 
   return (
     <section className={css.teachers}>
       <FilterForm />
       <ul className={css.teachersContainer}>
-        {teachers &&
-          teachers.slice(0, visibleCount).map((teacher, index) => {
-            const isFavorite = favorites.some(
-              (fav) =>
-                fav.name === teacher.name && fav.surname === teacher.surname
-            );
+        {teachers.slice(0, visibleCount).map((teacher, index) => {
+          const isFavorite = favorites.some(
+            (fav) =>
+              fav.name === teacher.name && fav.surname === teacher.surname
+          );
 
-            return (
-              <TeacherCard
-                key={index}
-                teacher={teacher}
-                index={index}
-                showMore={showMore}
-                toggleReadMore={toggleReadMore}
-                toggleFavorite={() => toggleFavorite(teacher)}
-                isFavorite={isFavorite}
-              />
-            );
-          })}
+          return (
+            <TeacherCard
+              key={`${teacher.name}-${teacher.surname}`}
+              teacher={teacher}
+              index={index}
+              showMore={showMore}
+              toggleReadMore={toggleReadMore}
+              toggleFavorite={() => toggleFavorite(teacher)}
+              isFavorite={isFavorite}
+            />
+          );
+        })}
       </ul>
 
-      {teachers && visibleCount < teachers.length && (
+      {visibleCount < teachers.length && (
         <div className={css.loadMoreWrapper}>
           <button className={css.loadMoreBtn} onClick={loadMore}>
             Load more

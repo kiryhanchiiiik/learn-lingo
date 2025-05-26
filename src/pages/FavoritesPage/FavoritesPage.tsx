@@ -1,10 +1,10 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../redux/store";
-import css from "./FavoritePage.module.scss";
-import TeacherCard from "../../components/TeacherCard/TeacherCard";
-import { useState } from "react";
-import { removeFavorite } from "../../redux/favorites/favoritesSlice";
 import type { Teacher } from "../../redux/favorites/favoritesSlice";
+import { removeFavorite } from "../../redux/favorites/favoritesSlice";
+import TeacherCard from "../../components/TeacherCard/TeacherCard";
+import css from "./FavoritePage.module.scss";
 
 const FavoritesPage = () => {
   const dispatch = useDispatch();

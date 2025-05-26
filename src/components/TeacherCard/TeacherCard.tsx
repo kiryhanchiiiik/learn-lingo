@@ -1,5 +1,5 @@
-import css from "./TeacherCard.module.scss";
 import sprite from "../../img/sprite.svg";
+import css from "./TeacherCard.module.scss";
 
 interface Review {
   reviewer_name: string;
@@ -119,18 +119,18 @@ const TeacherCard = ({
               <p className={css.infoWrapper}>{teacher.conditions}</p>
             </div>
             {showMore !== index && (
-              <a
+              <button
                 className={css.readMoreBtn}
                 onClick={() => toggleReadMore(index)}
               >
                 Read more
-              </a>
+              </button>
             )}
             {showMore === index && (
               <div className={css.moreInfo}>
                 <p className={css.moreInfoDesc}>{teacher.moreInfo}</p>
                 <ul className={css.moreInfoList}>
-                  {(teacher.reviews ?? []).map((review, idx) => (
+                  {teacher.reviews.map((review, idx) => (
                     <li key={idx}>
                       <div className={css.moreInfoItem}>
                         <div>

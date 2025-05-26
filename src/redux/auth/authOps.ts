@@ -7,6 +7,7 @@ import {
 import { auth } from "../../api/firebase";
 import type { AppDispatch } from "../store";
 import { setUser, setLoading, setError, clearUser } from "./authSlice";
+import { clearFavorites } from "../favorites/favoritesSlice";
 
 export const registerUser =
   (email: string, password: string, name: string) =>
@@ -68,14 +69,22 @@ export const loginUser =
     }
   };
 
-export const logoutUser = () => async (dispatch: AppDispatch) => {
+export const logoutUser = () => async (dispatch: AppDispatch, getState) => {
   try {
     dispatch(setLoading(true));
     dispatch(setError(null));
 
     await signOut(auth);
+
+    const state = getState();
+    const userEmail = state.auth.user?.email;
+    if (userEmail) {
+      localStorage.removeItem(`favorites_${userEmail}`);
+    }
+
     localStorage.removeItem("user");
     dispatch(clearUser());
+    dispatch(clearFavorites());
   } catch (error: any) {
     dispatch(setError(error.message));
   } finally {

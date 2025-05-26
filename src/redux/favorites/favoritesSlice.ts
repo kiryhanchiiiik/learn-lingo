@@ -25,54 +25,62 @@ interface FavoritesState {
   items: Teacher[];
 }
 
-const loadFromLocalStorage = (): Teacher[] => {
+const saveToLocalStorage = (email: string, items: Teacher[]) => {
   try {
-    const data = localStorage.getItem("favorites");
-    return data ? JSON.parse(data) : [];
-  } catch (e) {
-    console.log(e);
-    return [];
-  }
-};
-
-const saveToLocalStorage = (items: Teacher[]) => {
-  try {
-    localStorage.setItem("favorites", JSON.stringify(items));
+    localStorage.setItem(`favorites_${email}`, JSON.stringify(items));
   } catch (e) {
     console.error("Failed to save favorites", e);
   }
 };
 
 const initialState: FavoritesState = {
-  items: loadFromLocalStorage(),
+  items: [],
 };
+
+interface AddFavoritePayload {
+  teacher: Teacher;
+  email: string;
+}
+
+interface RemoveFavoritePayload {
+  teacher: Teacher;
+  email: string;
+}
+
+interface SetFavoritesPayload {
+  items: Teacher[];
+}
 
 const favoritesSlice = createSlice({
   name: "favorites",
   initialState,
   reducers: {
-    addFavorite(state, action: PayloadAction<Teacher>) {
+    setFavorites(state, action: PayloadAction<SetFavoritesPayload>) {
+      state.items = action.payload.items;
+    },
+    clearFavorites(state) {
+      state.items = [];
+    },
+    addFavorite(state, action: PayloadAction<AddFavoritePayload>) {
+      const { teacher, email } = action.payload;
       const exists = state.items.find(
-        (t) =>
-          t.name === action.payload.name && t.surname === action.payload.surname
+        (t) => t.name === teacher.name && t.surname === teacher.surname
       );
       if (!exists) {
-        state.items.push(action.payload);
-        saveToLocalStorage(state.items);
+        state.items.push(teacher);
+        saveToLocalStorage(email, state.items);
       }
     },
-    removeFavorite(state, action: PayloadAction<Teacher>) {
+    removeFavorite(state, action: PayloadAction<RemoveFavoritePayload>) {
+      const { teacher, email } = action.payload;
       state.items = state.items.filter(
-        (t) =>
-          !(
-            t.name === action.payload.name &&
-            t.surname === action.payload.surname
-          )
+        (t) => !(t.name === teacher.name && t.surname === teacher.surname)
       );
-      saveToLocalStorage(state.items);
+      saveToLocalStorage(email, state.items);
     },
   },
 });
 
-export const { addFavorite, removeFavorite } = favoritesSlice.actions;
+export const { addFavorite, removeFavorite, setFavorites, clearFavorites } =
+  favoritesSlice.actions;
 export default favoritesSlice.reducer;
