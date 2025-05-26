@@ -17,6 +17,7 @@ const FavoritesPage = () => {
   };
 
   const toggleFavorite = (teacher: Teacher): void => {
+    if (!user || !user.email) return;
     dispatch(removeFavorite({ teacher, email: user.email }));
   };
 
