@@ -10,6 +10,8 @@ import {
 } from "../../redux/favorites/favoritesSlice";
 import TeacherCard from "../../components/TeacherCard/TeacherCard";
 import css from "./TeachersPage.module.scss";
+import "react-toastify/dist/ReactToastify.css";
+import { toast, Bounce } from "react-toastify";
 
 interface Review {
   reviewer_name: string;
@@ -74,8 +76,17 @@ const TeachersPage = () => {
 
   const toggleFavorite = (teacher: Teacher) => {
     if (!user?.email) {
-      alert("Only authorized users can add to favorites.");
-      return;
+      return toast.error("You need to be logged in to add favorites", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     }
 
     const isAlreadyFavorite = favorites.some(
@@ -96,8 +107,6 @@ const TeachersPage = () => {
   const loadMore = () => {
     setVisibleCount((prev) => prev + 4);
   };
-
-  if (teachers.length === 0) return <p>Loading teachers...</p>;
 
   return (
     <section className={css.teachers}>

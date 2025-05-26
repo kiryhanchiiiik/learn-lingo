@@ -11,6 +11,7 @@ import Loader from "./components/Loader/Loader";
 import ProtectedRoute from "./ProtectedRoute";
 import { useEffect } from "react";
 import "./App.scss";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   useAuthListener();
@@ -49,6 +50,7 @@ function App() {
           }
         />
       </Routes>
+      <ToastContainer />
     </div>
   );
 }
