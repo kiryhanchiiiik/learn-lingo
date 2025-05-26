@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/auth/authOps";
 import type { RootState } from "../../redux/store";
 
+import sprite from "../../img/sprite.svg";
+import { useState } from "react";
+
 interface RegistrationFormValues {
   name: string;
   email: string;
@@ -26,6 +29,9 @@ const validationSchema = Yup.object().shape({
 const RegisterForm = ({ onSuccess }: { onSuccess: () => void }) => {
   const dispatch = useDispatch();
   const error = useSelector((state: RootState) => state.auth.error);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   const {
     register,
@@ -46,41 +52,62 @@ const RegisterForm = ({ onSuccess }: { onSuccess: () => void }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label className={css.label}>
-        {errors.name && (
-          <span className={css.error}>{errors.name.message}</span>
-        )}
+      <div>
+        <div className={css.labelWrapper}>
+          <label htmlFor="name">Name</label>
+          {errors.name && (
+            <span className={css.error}>{errors.name.message}</span>
+          )}
+        </div>
         <input
           className={css.input}
           type="text"
           {...register("name")}
           placeholder="Name"
         />
-      </label>
+      </div>
 
-      <label className={css.label}>
-        {errors.email && (
-          <span className={css.error}>{errors.email.message}</span>
-        )}
+      <div>
+        <div className={css.labelWrapper}>
+          <label htmlFor="email">Email</label>
+          {errors.email && (
+            <span className={css.error}>{errors.email.message}</span>
+          )}
+        </div>
         <input
           className={css.input}
-          type="email"
+          type="text"
           {...register("email")}
           placeholder="Email"
         />
-      </label>
+      </div>
 
-      <label className={css.label}>
-        {errors.password && (
-          <span className={css.error}>{errors.password.message}</span>
-        )}
+      <div className={css.label}>
+        <div className={css.labelWrapper}>
+          <label htmlFor="password">Password</label>
+          {errors.password && (
+            <span className={css.error}>{errors.password.message}</span>
+          )}
+        </div>
         <input
           className={`${css.input} ${css.lastInput}`}
-          type="password"
+          type={showPassword ? "text" : "password"}
           {...register("password")}
           placeholder="Password"
         />
-      </label>
+        <button
+          type="button"
+          onClick={togglePasswordVisibility}
+          className={css.eyeBtn}
+          aria-label="Toggle password visibility"
+        >
+          <svg className={css.eyeIcon} width={25} height={25}>
+            <use
+              href={`${sprite}#${showPassword ? "icon-eye" : "icon-eye-off"}`}
+            />
+          </svg>
+        </button>
+      </div>
 
       {error && <p className={css.error}>{error}</p>}
 

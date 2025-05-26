@@ -5,6 +5,8 @@ import css from "./LoginForm.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/auth/authOps";
 import type { AppDispatch, RootState } from "../../redux/store";
+import { useState } from "react";
+import sprite from "../../img/sprite.svg";
 
 interface LoginFormValues {
   email: string;
@@ -21,6 +23,10 @@ const validationSchema = Yup.object().shape({
 const LoginForm = ({ onSuccess }: { onSuccess: () => void }) => {
   const dispatch = useDispatch<AppDispatch>();
   const error = useSelector((state: RootState) => state.auth.error);
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   const {
     register,
@@ -43,29 +49,47 @@ const LoginForm = ({ onSuccess }: { onSuccess: () => void }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
-      <label className={css.label}>
-        {errors.email && (
-          <span className={css.error}>{errors.email.message}</span>
-        )}
+      <div>
+        <div className={css.labelWrapper}>
+          <label htmlFor="email">Email</label>
+          {errors.email && (
+            <span className={css.error}>{errors.email.message}</span>
+          )}
+        </div>
         <input
           className={css.input}
           type="email"
           {...register("email")}
           placeholder="Email"
         />
-      </label>
+      </div>
 
-      <label className={css.label}>
-        {errors.password && (
-          <span className={css.error}>{errors.password.message}</span>
-        )}
+      <div className={css.label}>
+        <div className={css.labelWrapper}>
+          <label htmlFor="password">Password</label>
+          {errors.password && (
+            <span className={css.error}>{errors.password.message}</span>
+          )}
+        </div>
         <input
           className={css.input}
-          type="password"
+          type={showPassword ? "text" : "password"}
           {...register("password")}
           placeholder="Password"
         />
-      </label>
+        <button
+          type="button"
+          onClick={togglePasswordVisibility}
+          className={css.eyeBtn}
+          aria-label="Toggle password visibility"
+        >
+          <svg className={css.eyeIcon} width={25} height={25}>
+            <use
+              href={`${sprite}#${showPassword ? "icon-eye" : "icon-eye-off"}`}
+            />
+          </svg>
+        </button>
+      </div>
 
       {error && <div className={css.error}>{error}</div>}
 

@@ -12,6 +12,16 @@
   margin-bottom: 40px;
 }
 
+.label {
+  position: relative;
+}
+
+.eyeIcon {
+  right: 22px;
+  position: absolute;
+  top: 39px;
+}
+
 input::placeholder {
   color: #121417;
 }
@@ -34,5 +44,20 @@ input::placeholder {
 }
 
 .error {
+  font-weight: 500;
+  line-height: 1;
+  font-size: 0.875rem;
   color: red;
+}
+
+.labelWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  label {
+    line-height: 1;
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
 }

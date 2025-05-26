@@ -36,3 +36,32 @@ input::placeholder {
 .error {
   color: red;
 }
+
+.error {
+  font-weight: 500;
+  line-height: 1;
+  font-size: 0.875rem;
+  color: red;
+}
+
+.label {
+  position: relative;
+}
+
+.eyeIcon {
+  right: 22px;
+  position: absolute;
+  top: 39px;
+}
+
+.labelWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  label {
+    line-height: 1;
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+}
