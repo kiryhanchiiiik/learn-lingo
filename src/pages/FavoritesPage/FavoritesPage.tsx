@@ -5,12 +5,15 @@ import type { Teacher } from "../../redux/favorites/favoritesSlice";
 import { removeFavorite } from "../../redux/favorites/favoritesSlice";
 import TeacherCard from "../../components/TeacherCard/TeacherCard";
 import css from "./FavoritePage.module.scss";
+import Modal from "../../components/Modal/Modal";
 
 const FavoritesPage = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
   const favorites = useSelector((state: RootState) => state.favorites.items);
   const [showMore, setShowMore] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
 
   const toggleReadMore = (index: number): void => {
     setShowMore((prev) => (prev === index ? null : index));
@@ -19,6 +22,11 @@ const FavoritesPage = () => {
   const toggleFavorite = (teacher: Teacher): void => {
     if (!user || !user.email) return;
     dispatch(removeFavorite({ teacher, email: user.email }));
+  };
+
+  const handleBookClick = (teacher: Teacher) => {
+    setSelectedTeacher(teacher);
+    setIsModalOpen(true);
   };
 
   return (
@@ -40,9 +48,34 @@ const FavoritesPage = () => {
               showMore={showMore}
               toggleReadMore={toggleReadMore}
               toggleFavorite={toggleFavorite}
+              onBookClick={handleBookClick}
               isFavorite={true}
             />
           ))}
+
+          {isModalOpen && selectedTeacher && (
+            <Modal onClose={() => setIsModalOpen(false)}>
+              <div className={css.bookContainer}>
+                <div className={css.bookDescContainer}>
+                  <h2>Book trial lesson</h2>
+                  <p>
+                    Our experienced tutor will assess your current language
+                    level, discuss your learning goals, and tailor the lesson to
+                    your specific needs.
+                  </p>
+                </div>
+                <div>
+                  <img
+                    style={{ borderRadius: "100px" }}
+                    width={44}
+                    height={44}
+                    src={selectedTeacher.avatar_url}
+                    alt={selectedTeacher.name}
+                  />
+                </div>
+              </div>
+            </Modal>
+          )}
         </ul>
       )}
     </section>

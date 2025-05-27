@@ -13,6 +13,7 @@ import css from "./TeachersPage.module.scss";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, Bounce } from "react-toastify";
 import Modal from "../../components/Modal/Modal";
+import { Controller, useForm } from "react-hook-form";
 
 interface Review {
   reviewer_name: string;
@@ -41,6 +42,12 @@ const TeachersPage = () => {
   const [showMore, setShowMore] = useState<number | null>(null);
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [visibleCount, setVisibleCount] = useState(4);
+
+  const { control } = useForm({
+    defaultValues: {
+      reason: "",
+    },
+  });
 
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
@@ -145,12 +152,57 @@ const TeachersPage = () => {
         <Modal onClose={() => setIsModalOpen(false)}>
           <div className={css.bookContainer}>
             <div className={css.bookDescContainer}>
-              <h2>Book trial lesson</h2>
-              <p>
+              <h2 className={css.bookTrialTitle}>Book trial lesson</h2>
+              <p className={css.bookTrialSubTitle}>
                 Our experienced tutor will assess your current language level,
                 discuss your learning goals, and tailor the lesson to your
                 specific needs.
               </p>
+            </div>
+            <div className={css.imageTextContainer}>
+              <img
+                style={{ borderRadius: "100px" }}
+                width={44}
+                height={44}
+                src={selectedTeacher.avatar_url}
+                alt={selectedTeacher.name}
+              />
+              <div className={css.teacherInfoContainer}>
+                <p className={css.teacherName}>Your teacher</p>
+                <p className={css.teacherNameSurname}>
+                  {selectedTeacher.name} {selectedTeacher.surname}
+                </p>
+              </div>
+            </div>
+            <div className={css.radioContainer}>
+              <h2>What is your main reason for learning English?</h2>
+              <form onSubmit={(e) => e.preventDefault()}>
+                <Controller
+                  name="reason"
+                  control={control}
+                  render={({ field }) => (
+                    <div className={css.radioGroup}>
+                      {[
+                        "Career and business",
+                        "Lesson for kids",
+                        "Living abroad",
+                        "Exams and coursework",
+                        "Culture, travel or hobby",
+                      ].map((option) => (
+                        <label key={option} className={css.radioLabel}>
+                          <input
+                            type="radio"
+                            value={option}
+                            checked={field.value === option}
+                            onChange={() => field.onChange(option)}
+                          />
+                          {option}
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                />
+              </form>
             </div>
           </div>
         </Modal>
