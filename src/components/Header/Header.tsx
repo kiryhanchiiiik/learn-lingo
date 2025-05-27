@@ -100,7 +100,9 @@ const Header = () => {
         <Modal onClose={closeRegisterModal}>
           <h2 className={css.regTitle}>Registration</h2>
           <p className={css.regSubTitle}>
-            Thank you for your interest! Please provide the information below.
+            Thank you for your interest in our platform! In order to register,
+            we need some information. Please provide us with the following
+            information
           </p>
           <RegisterForm onSuccess={closeRegisterModal} />
         </Modal>
@@ -110,7 +112,8 @@ const Header = () => {
         <Modal onClose={closeLoginModal}>
           <h2 className={css.regTitle}>Log In</h2>
           <p className={css.regSubTitle}>
-            Welcome back! Please log in to your account.
+            Welcome back! Please enter your credentials to access your account
+            and continue your search for an teacher.
           </p>
           <LoginForm onSuccess={closeLoginModal} />
         </Modal>

@@ -12,6 +12,7 @@ import TeacherCard from "../../components/TeacherCard/TeacherCard";
 import css from "./TeachersPage.module.scss";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, Bounce } from "react-toastify";
+import Modal from "../../components/Modal/Modal";
 
 interface Review {
   reviewer_name: string;
@@ -35,6 +36,8 @@ interface Teacher {
 }
 
 const TeachersPage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
   const [showMore, setShowMore] = useState<number | null>(null);
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [visibleCount, setVisibleCount] = useState(4);
@@ -108,6 +111,11 @@ const TeachersPage = () => {
     setVisibleCount((prev) => prev + 4);
   };
 
+  const handleBookClick = (teacher: Teacher) => {
+    setSelectedTeacher(teacher);
+    setIsModalOpen(true);
+  };
+
   return (
     <section className={css.teachers}>
       <FilterForm />
@@ -127,10 +135,26 @@ const TeachersPage = () => {
               toggleReadMore={toggleReadMore}
               toggleFavorite={() => toggleFavorite(teacher)}
               isFavorite={isFavorite}
+              onBookClick={handleBookClick}
             />
           );
         })}
       </ul>
+
+      {isModalOpen && selectedTeacher && (
+        <Modal onClose={() => setIsModalOpen(false)}>
+          <div className={css.bookContainer}>
+            <div className={css.bookDescContainer}>
+              <h2>Book trial lesson</h2>
+              <p>
+                Our experienced tutor will assess your current language level,
+                discuss your learning goals, and tailor the lesson to your
+                specific needs.
+              </p>
+            </div>
+          </div>
+        </Modal>
+      )}
 
       {visibleCount < teachers.length && (
         <div className={css.loadMoreWrapper}>

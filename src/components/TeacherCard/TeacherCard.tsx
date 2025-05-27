@@ -29,6 +29,7 @@ interface Props {
   toggleReadMore: (index: number) => void;
   toggleFavorite: (teacher: Teacher, index: number) => void;
   isFavorite: boolean;
+  onBookClick: (teacher: Teacher) => void;
 }
 
 const TeacherCard = ({
@@ -37,6 +38,7 @@ const TeacherCard = ({
   showMore,
   toggleReadMore,
   toggleFavorite,
+  onBookClick,
   isFavorite,
 }: Props) => {
   return (
@@ -168,7 +170,11 @@ const TeacherCard = ({
           </div>
           {showMore === index && (
             <div>
-              <button type="button" className={css.bookBtn}>
+              <button
+                type="button"
+                className={css.bookBtn}
+                onClick={() => onBookClick(teacher)}
+              >
                 Book trial lesson
               </button>
             </div>
