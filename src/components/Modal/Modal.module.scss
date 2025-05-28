@@ -25,3 +25,38 @@
   right: 20px;
   cursor: pointer;
 }
+
+.modal {
+  background: white;
+  padding: 64px;
+  border-radius: 30px;
+  position: relative;
+  width: 90%;
+  max-width: 556px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal {
+  scrollbar-width: 20px;
+  scrollbar-color: #9fb7ce transparent;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #9fb7ce;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #bfd6ea;
+  }
+}
