@@ -1,17 +1,18 @@
+import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDelayedLoader } from "./hooks/useDelayedLoader";
 import type { RootState } from "./redux/store";
+import { ToastContainer } from "react-toastify";
 import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import TeachersPage from "./pages/TeachersPage/TeachersPage";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 import useAuthListener from "./hooks/useAuthListener";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import Loader from "./components/Loader/Loader";
 import ProtectedRoute from "./ProtectedRoute";
-import { useEffect } from "react";
 import "./App.scss";
-import { ToastContainer } from "react-toastify";
 
 function App() {
   useAuthListener();
@@ -49,6 +50,7 @@ function App() {
             ></ProtectedRoute>
           }
         />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <ToastContainer />
     </div>

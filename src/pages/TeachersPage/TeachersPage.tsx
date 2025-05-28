@@ -45,7 +45,6 @@ interface BookScheme {
   phone: string;
 }
 
-// Обновленная схема валидации без password
 const validationSchema = Yup.object().shape({
   reason: Yup.string().required("Please select a reason"),
   name: Yup.string()
@@ -163,6 +162,7 @@ const TeachersPage = () => {
       reset();
       setIsModalOpen(false);
     } catch (error) {
+      console.log(error);
       toast.error("Failed to book lesson");
     }
   };

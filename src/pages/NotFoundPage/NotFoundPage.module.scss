@@ -1,0 +1,38 @@
+.notFoundContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 80vh;
+}
+
+.notFoundTitle {
+  font-size: 48px;
+  font-weight: bold;
+  color: #9fb7ce;
+  margin-bottom: 20px;
+}
+
+.notFoundMessage {
+  font-size: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.notFoundButton {
+  background-color: #9fb7ce;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  transition: color 350ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover,
+  &:focus {
+    background-color: #bfd6ea;
+    color: #ffffff;
+  }
+}
