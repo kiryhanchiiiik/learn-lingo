@@ -6,6 +6,7 @@ import { removeFavorite } from "../../redux/favorites/favoritesSlice";
 import TeacherCard from "../../components/TeacherCard/TeacherCard";
 import css from "./FavoritePage.module.scss";
 import Modal from "../../components/Modal/Modal";
+import BookingModal from "../../components/BookingModal/BookingModal";
 
 const FavoritesPage = () => {
   const dispatch = useDispatch();
@@ -77,6 +78,13 @@ const FavoritesPage = () => {
             </Modal>
           )}
         </ul>
+      )}
+
+      {isModalOpen && selectedTeacher && (
+        <BookingModal
+          teacher={selectedTeacher}
+          onClose={() => setIsModalOpen(false)}
+        />
       )}
     </section>
   );
