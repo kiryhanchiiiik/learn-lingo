@@ -65,6 +65,19 @@ const TeachersPage = () => {
     setSelectedLanguage(null);
     setSelectedLevel(null);
     setSelectedPrice(null);
+
+    if (!selectedLanguage && !selectedLevel && !selectedPrice) {
+      return toast.info("Select options", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
   };
 
   useEffect(() => {
