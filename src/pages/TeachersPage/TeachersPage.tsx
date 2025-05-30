@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import type { RootState } from "../../redux/store";
 import { axiosInstance } from "../../api/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
-import FilterForm from "../../components/FilterForm/FilterForm";
+import { selectUser } from "../../redux/auth/selectors";
 import {
   addFavorite,
   removeFavorite,
-  setFavorites,
 } from "../../redux/favorites/favoritesSlice";
 import { toast, Bounce } from "react-toastify";
+import FilterForm from "../../components/FilterForm/FilterForm";
 import TeacherCard from "../../components/TeacherCard/TeacherCard";
 import BookingModal from "../../components/BookingModal/BookingModal";
 import "react-toastify/dist/ReactToastify.css";
@@ -37,7 +37,7 @@ interface Teacher {
 
 const TeachersPage = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.auth.user);
+  const user = useSelector(selectUser);
   const favorites = useSelector((state: RootState) => state.favorites.items);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -82,25 +82,6 @@ const TeachersPage = () => {
   useEffect(() => {
     setVisibleCount(4);
   }, [selectedLanguage, selectedLevel, selectedPrice]);
-
-  useEffect(() => {
-    if (user?.email) {
-      const favStr = localStorage.getItem(`favorites_${user.email}`);
-      if (favStr) {
-        try {
-          const favItems: Teacher[] = JSON.parse(favStr);
-          dispatch(setFavorites({ items: favItems }));
-        } catch (e) {
-          console.error("Failed to parse favorites from localStorage", e);
-          dispatch(setFavorites({ items: [] }));
-        }
-      } else {
-        dispatch(setFavorites({ items: [] }));
-      }
-    } else {
-      dispatch(setFavorites({ items: [] }));
-    }
-  }, [user, dispatch]);
 
   const toggleFavorite = (teacher: Teacher) => {
     if (!user?.email) {

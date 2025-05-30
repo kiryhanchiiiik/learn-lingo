@@ -13,6 +13,7 @@ import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import Loader from "./components/Loader/Loader";
 import ProtectedRoute from "./ProtectedRoute";
 import "./App.scss";
+import InitFavorites from "./components/InitFavorites/InitFavorites";
 
 function App() {
   useAuthListener();
@@ -37,6 +38,7 @@ function App() {
 
   return (
     <div className="container">
+      <InitFavorites />
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />

@@ -1,13 +1,13 @@
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import css from "./LoginForm.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../redux/auth/authOps";
-import type { AppDispatch, RootState } from "../../redux/store";
 import { useState } from "react";
-import sprite from "../../img/sprite.svg";
+import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { yupResolver } from "@hookform/resolvers/yup";
+import type { AppDispatch } from "../../redux/store";
+import { loginUser } from "../../redux/auth/authOps";
+import * as Yup from "yup";
+import sprite from "../../img/sprite.svg";
+import css from "./LoginForm.module.scss";
 
 interface LoginFormValues {
   email: string;
@@ -23,7 +23,6 @@ const validationSchema = Yup.object().shape({
 
 const LoginForm = ({ onSuccess }: { onSuccess: () => void }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const error = useSelector((state: RootState) => state.auth.error);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -99,8 +98,6 @@ const LoginForm = ({ onSuccess }: { onSuccess: () => void }) => {
           </svg>
         </button>
       </div>
-
-      {error && <div className={css.error}>{error}</div>}
 
       <button className={css.registerBtn} type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Logging in..." : "Log In"}
