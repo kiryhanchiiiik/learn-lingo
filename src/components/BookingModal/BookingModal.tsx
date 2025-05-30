@@ -4,8 +4,6 @@ import * as Yup from "yup";
 import css from "./BookingModal.module.scss";
 import Modal from "../Modal/Modal";
 import { toast } from "react-toastify";
-import { addDoc, collection, Timestamp } from "firebase/firestore";
-import { db } from "../../api/firebase";
 
 interface BookScheme {
   reason: string;
