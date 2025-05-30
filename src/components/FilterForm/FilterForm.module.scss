@@ -1,4 +1,23 @@
 .filterContainer {
   display: flex;
+  align-items: center;
   column-gap: 20px;
+}
+
+.reset {
+  padding: 10px 20px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 156%;
+  color: #121417;
+  border-radius: 12px;
+  background-color: #9fb7ce;
+  transition: color 350ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover,
+  &:focus {
+    background-color: #bfd6ea;
+    color: #ffffff;
+  }
 }

@@ -61,6 +61,12 @@ const TeachersPage = () => {
     return matchesLanguage && matchesLevel && matchesPrice;
   });
 
+  const handleReset = () => {
+    setSelectedLanguage(null);
+    setSelectedLevel(null);
+    setSelectedPrice(null);
+  };
+
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
@@ -143,6 +149,7 @@ const TeachersPage = () => {
         onLanguageChange={setSelectedLanguage}
         onLevelChange={setSelectedLevel}
         onPriceChange={setSelectedPrice}
+        onResetChange={handleReset}
       />
       <ul className={css.teachersContainer}>
         {filteredTeachers.slice(0, visibleCount).map((teacher, index) => {

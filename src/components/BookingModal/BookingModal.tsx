@@ -1,9 +1,9 @@
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import css from "./BookingModal.module.scss";
-import Modal from "../Modal/Modal";
 import { toast } from "react-toastify";
+import * as Yup from "yup";
+import Modal from "../Modal/Modal";
+import css from "./BookingModal.module.scss";
 
 interface BookScheme {
   reason: string;

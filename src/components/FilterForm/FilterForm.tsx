@@ -10,6 +10,7 @@ const FilterForm = ({
   onLanguageChange,
   onLevelChange,
   onPriceChange,
+  onResetChange,
 }: {
   selectedLanguage: string | null;
   selectedLevel: string | null;
@@ -17,6 +18,7 @@ const FilterForm = ({
   onLanguageChange: (value: string | null) => void;
   onLevelChange: (value: string | null) => void;
   onPriceChange: (value: string | null) => void;
+  onResetChange: () => void;
 }) => {
   return (
     <ul className={css.filterContainer}>
@@ -32,6 +34,9 @@ const FilterForm = ({
       <li>
         <SelectPrice selected={selectedPrice} onChange={onPriceChange} />
       </li>
+      <button className={css.reset} type="button" onClick={onResetChange}>
+        Reset
+      </button>
     </ul>
   );
 };
