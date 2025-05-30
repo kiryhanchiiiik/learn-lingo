@@ -36,15 +36,30 @@ interface Teacher {
 }
 
 const TeachersPage = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
+  const favorites = useSelector((state: RootState) => state.favorites.items);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
   const [showMore, setShowMore] = useState<number | null>(null);
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [visibleCount, setVisibleCount] = useState(4);
 
-  const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.auth.user);
-  const favorites = useSelector((state: RootState) => state.favorites.items);
+  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+  const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
+  const [selectedPrice, setSelectedPrice] = useState<string | null>(null);
+
+  const filteredTeachers = teachers.filter((teacher) => {
+    const matchesLanguage =
+      !selectedLanguage || teacher.languages.includes(selectedLanguage);
+    const matchesLevel =
+      !selectedLevel || teacher.levels.includes(selectedLevel);
+    const matchesPrice =
+      !selectedPrice ||
+      teacher.price_per_hour.toString() === selectedPrice.toString();
+    return matchesLanguage && matchesLevel && matchesPrice;
+  });
 
   useEffect(() => {
     const fetchTeachers = async () => {
@@ -57,6 +72,10 @@ const TeachersPage = () => {
     };
     fetchTeachers();
   }, []);
+
+  useEffect(() => {
+    setVisibleCount(4);
+  }, [selectedLanguage, selectedLevel, selectedPrice]);
 
   useEffect(() => {
     if (user?.email) {
@@ -117,9 +136,16 @@ const TeachersPage = () => {
 
   return (
     <section className={css.teachers}>
-      <FilterForm />
+      <FilterForm
+        selectedLanguage={selectedLanguage}
+        selectedLevel={selectedLevel}
+        selectedPrice={selectedPrice}
+        onLanguageChange={setSelectedLanguage}
+        onLevelChange={setSelectedLevel}
+        onPriceChange={setSelectedPrice}
+      />
       <ul className={css.teachersContainer}>
-        {teachers.slice(0, visibleCount).map((teacher, index) => {
+        {filteredTeachers.slice(0, visibleCount).map((teacher, index) => {
           const isFavorite = favorites.some(
             (fav) =>
               fav.name === teacher.name && fav.surname === teacher.surname
@@ -147,7 +173,7 @@ const TeachersPage = () => {
         />
       )}
 
-      {visibleCount < teachers.length && (
+      {visibleCount < filteredTeachers.length && (
         <div className={css.loadMoreWrapper}>
           <button className={css.loadMoreBtn} onClick={loadMore}>
             Load more

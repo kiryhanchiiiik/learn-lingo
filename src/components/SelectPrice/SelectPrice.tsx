@@ -3,9 +3,14 @@ import { axiosInstance } from "../../api/axiosInstance";
 import sprite from "../../img/sprite.svg";
 import css from "./SelectPrice.module.scss";
 
-const SelectPrice = () => {
+const SelectPrice = ({
+  selected,
+  onChange,
+}: {
+  selected: string | null;
+  onChange: (value: string | null) => void;
+}) => {
   const [prices, setPrices] = useState<string[] | null>(null);
-  const [selectedPrice, setSelectedPrice] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -38,7 +43,7 @@ const SelectPrice = () => {
   const handleToggle = () => setIsOpen((prev) => !prev);
 
   const handlePriceClick = (price: string) => {
-    setSelectedPrice(price);
+    onChange(price);
     setIsOpen(false);
   };
 
@@ -51,7 +56,7 @@ const SelectPrice = () => {
           className={css.selectButton}
           onClick={handleToggle}
         >
-          {selectedPrice ? `${selectedPrice} $` : "Prices"}
+          {selected ? `${selected} $` : "Prices"}
           <div className={`${css.arrow} ${isOpen ? css.arrowUp : ""}`}>
             <svg width="12" height="12">
               <use href={`${sprite}#down`} />

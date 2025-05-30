@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import css from "./BookingModal.module.scss";
 import Modal from "../Modal/Modal";
 import { toast } from "react-toastify";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { db } from "../../api/firebase";
 
 interface BookScheme {
   reason: string;
@@ -61,8 +63,8 @@ const BookingModal = ({ teacher, onClose }: Props) => {
     },
   });
 
-  const onSubmit = (data: BookScheme) => {
-    console.log("Booking data", data);
+  const onSubmit = async (data: BookScheme) => {
+    console.log(data);
     toast.success("Booking successful!");
     reset();
     onClose();
@@ -95,35 +97,38 @@ const BookingModal = ({ teacher, onClose }: Props) => {
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h2>What is your main reason for learning English?</h2>
-          <Controller
-            name="reason"
-            control={control}
-            render={({ field }) => (
-              <div className={css.radioGroup}>
-                {[
-                  "Career and business",
-                  "Lesson for kids",
-                  "Living abroad",
-                  "Exams and coursework",
-                  "Culture, travel or hobby",
-                ].map((option) => (
-                  <label key={option} className={css.radioLabel}>
-                    <input
-                      type="radio"
-                      value={option}
-                      checked={field.value === option}
-                      onChange={() => field.onChange(option)}
-                    />
-                    <span className={css.customRadio}>
-                      <span className={css.radioDot}></span>
-                    </span>
-                    <span className={css.radioText}>{option}</span>
-                  </label>
-                ))}
-              </div>
-            )}
-          />
+          <div className={css.radioContainer}>
+            <h2>What is your main reason for learning English?</h2>
+            <Controller
+              name="reason"
+              control={control}
+              render={({ field }) => (
+                <div className={css.radioGroup}>
+                  {[
+                    "Career and business",
+                    "Lesson for kids",
+                    "Living abroad",
+                    "Exams and coursework",
+                    "Culture, travel or hobby",
+                  ].map((option) => (
+                    <label key={option} className={css.radioLabel}>
+                      <input
+                        type="radio"
+                        value={option}
+                        checked={field.value === option}
+                        onChange={() => field.onChange(option)}
+                      />
+                      <span className={css.customRadio}>
+                        <span className={css.radioDot}></span>
+                      </span>
+                      <span className={css.radioText}>{option}</span>
+                    </label>
+                  ))}
+                </div>
+              )}
+            />
+          </div>
+
           {errors.reason && (
             <p className={css.error}>{errors.reason.message}</p>
           )}

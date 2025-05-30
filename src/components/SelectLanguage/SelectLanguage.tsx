@@ -3,9 +3,14 @@ import { axiosInstance } from "../../api/axiosInstance";
 import sprite from "../../img/sprite.svg";
 import css from "./SelectLanguage.module.scss";
 
-const SelectLanguage = () => {
+const SelectLanguage = ({
+  selected,
+  onChange,
+}: {
+  selected: string | null;
+  onChange: (value: string | null) => void;
+}) => {
   const [languages, setLanguages] = useState<string[] | null>(null);
-  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -38,7 +43,7 @@ const SelectLanguage = () => {
   const handleToggle = () => setIsOpen((prev) => !prev);
 
   const handleLanguageClick = (language: string) => {
-    setSelectedLanguage(language);
+    onChange(language);
     setIsOpen(false);
   };
 
@@ -51,7 +56,7 @@ const SelectLanguage = () => {
           className={css.selectButton}
           onClick={handleToggle}
         >
-          {selectedLanguage || "Languages"}
+          {selected || "Languages"}
           <div className={`${css.arrow} ${isOpen ? css.arrowUp : ""}`}>
             <svg width="12" height="12">
               <use href={`${sprite}#down`} />
