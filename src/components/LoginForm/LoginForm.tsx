@@ -7,6 +7,7 @@ import { loginUser } from "../../redux/auth/authOps";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { useState } from "react";
 import sprite from "../../img/sprite.svg";
+import { toast } from "react-toastify";
 
 interface LoginFormValues {
   email: string;
@@ -44,6 +45,14 @@ const LoginForm = ({ onSuccess }: { onSuccess: () => void }) => {
       onSuccess();
     } catch (err) {
       console.error("Login error:", err);
+
+      toast.error("Incorrect email or password", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        closeOnClick: true,
+      });
     }
   };
 

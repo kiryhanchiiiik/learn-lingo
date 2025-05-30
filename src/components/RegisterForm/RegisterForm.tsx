@@ -8,6 +8,7 @@ import type { RootState } from "../../redux/store";
 
 import sprite from "../../img/sprite.svg";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 interface RegistrationFormValues {
   name: string;
@@ -43,11 +44,23 @@ const RegisterForm = ({ onSuccess }: { onSuccess: () => void }) => {
   });
 
   const onSubmit = async (data: RegistrationFormValues) => {
-    const { name, email, password } = data;
-    await dispatch(registerUser(email, password, name) as any);
+    try {
+      const { name, email, password } = data;
+      await dispatch(registerUser(email, password, name) as any);
 
-    reset();
-    onSuccess();
+      reset();
+      onSuccess();
+    } catch (err) {
+      console.error("Login error:", err);
+
+      toast.error("Email already in use", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        closeOnClick: true,
+      });
+    }
   };
 
   return (
